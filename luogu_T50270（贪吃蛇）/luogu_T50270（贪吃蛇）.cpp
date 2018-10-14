@@ -13,6 +13,12 @@ class lang//”Ô—‘∫∫ªØ£∫skyfackr
 		int language=0;//1:chinese 2:english
 		bool Is_Language_Initializated=false;
 		std::map<string,string> sentence;
+		struct Sentence_Saver
+		{
+			string In_Program_Name[13];
+			string English_Sentence[13];
+			string Chinese_Sentence[13];
+		}
 		void Sentence_Initialization_Centre()
 		{
 			
