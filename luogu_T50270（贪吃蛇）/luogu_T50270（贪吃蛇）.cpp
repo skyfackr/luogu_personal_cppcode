@@ -36,10 +36,17 @@ class lang//Sinization by.skyfackr
 		}
 		inline string Sentence_found(string s)
 		{
-			
+			return sentence[s];
 		}
 		void LangERR_fixed()
 		{
+			if (!Is_Language_Initializated)
+			{
+				syc;
+				cout<<"ERR_langguage_service_start_failed"<<endl;
+				syp;
+				exit(0);
+			}
 			if (!Is_Language_pointed())
 			{
 				syc;
@@ -147,6 +154,57 @@ class lang//Sinization by.skyfackr
 				i++;
 			}
 			en_Test(i);
+			name.close();
+			cn.close();
+			en.close();
+			if (language==1)
+			{
+				system("title 贪吃蛇 by ZZX");
+				for (int j=0;j<=Sentence_Saver.Sentence_Number-1;j++)
+				{
+					sentence[Sentence_Saver.In_Program_Name[i]]=Sentence_Saver.Chinese_Sentence[i];
+				}
+			}
+			else
+			{
+				system("title Snake by ZZX");
+				for (int j=0;j<=Sentence_Saver.Sentence_Number-1;j++)
+				{
+					sentence[Sentence_Saver.In_Program_Name[i]]=Sentence_Saver.English_Sentence[i];
+				}
+			}
+			syc;
+			Is_Language_Initializated=true;
+			return;
+		}
+		inline void language_get(int x)
+		{
+			l1=l2=language;
+		}
+	public:
+		string findword(string s)
+		{
+			LangERR_fixed();
+			return Sentence_found(s);
+			
+		}
+		void languagehold()
+		{
+			syc;
+			system("title Snake(choose language)");
+			int x;
+			cout<<"选择你的语言"<<endl<<"Select your language"<<endl;
+			cout<<"1,简体中文"<<endl<<"2,English"<<endl;
+			cin>>x;
+			while (x!=1&&x!=2)
+			{
+				cout<<"exm???????"<<endl<<"选择你的语言"<<endl<<"Select your language"<<endl;
+				cout<<"1,简体中文"<<endl<<"2,English"<<endl;
+				cin>>x;
+			} 
+			language_get(x);
+			Sentence_Initialization_Centre();
+			LangERR_fixed();
 		}
 } 
 int NumbO;
@@ -295,6 +353,7 @@ bool Check(int x,int y)
 }
 void Play()
 {
+   
     while(1)
     {
         Show();
@@ -396,7 +455,7 @@ int main()
 //	freopen(".out","w",stdout);
     ios_base::sync_with_stdio(false);
 //	system("color 9E");
-    system("title Snake by ZZX");
+    lang::languagehold();
     Choose_Mode();
     Input();
     Init();
