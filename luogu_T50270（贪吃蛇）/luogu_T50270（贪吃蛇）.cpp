@@ -419,10 +419,12 @@ void Play()
 }
 void Choose_Mode()
 {
-    cout<<"Please choose your mode"<<endl;
+    reset:
+	cout<<"Please choose your mode"<<endl;
     cout<<"1:Original mode"<<endl;
     cout<<"2:Time limit mode"<<endl;
     cout<<"3:Object mode"<<endl;
+    cout<<"4:Reset language"<<endl;
     int tmpm;
     cin>>tmpm;
     if(tmpm==1)
@@ -441,6 +443,11 @@ void Choose_Mode()
         Mode=3;
         cout<<endl<<"Input the number of objects"<<endl;
         cin>>NumbO;
+    }
+    else if(tmpm==4)
+    {
+    	lang::languagehold();
+    	goto reset;
     }
     else
     {
