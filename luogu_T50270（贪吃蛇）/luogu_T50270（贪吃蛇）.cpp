@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 #include<windows.h>
 #include<conio.h>
+#define syp system("pause")
+#define syc system("Cls")
 using namespace std;
 const int inf=1e9+7;
 struct node
@@ -13,6 +15,17 @@ class lang//Sinization by.skyfackr
 		int language=0;//1:chinese 2:english
 		int l1,l2;
 		bool Is_Language_Initializated=false;
+		inline bool Is_Language_pointed()
+		{
+			if (language==0&&l1==0&&l2==0) return true;
+			else return false;
+		}
+		inline bool Compare_language_function()
+		{
+			if (language!=l1||l1!=l2||language!=l2) return true;
+			else return false;
+		}
+		
 		std::map<string,string> sentence;
 		struct Sentence_Saver
 		{
@@ -21,9 +34,119 @@ class lang//Sinization by.skyfackr
 			string English_Sentence[Sentence_Number];
 			string Chinese_Sentence[Sentence_Number];
 		}
-		void Sentence_Initialization_Centre()
+		inline string Sentence_found(string s)
 		{
 			
+		}
+		void LangERR_fixed()
+		{
+			if (!Is_Language_pointed())
+			{
+				syc;
+				cout<<"......well,you win"<<endl;
+				syp;
+				exit(0);
+			}
+			if (Compare_language_function())
+			{
+				syc;
+				cout<<"Junk hacker...."<<endl;
+				syp;
+				exit(0);
+			}
+			return;
+		}
+		inline void Name_Test(int i)
+		{
+			if (i=Sentence_Saver.Sentence_Number-1&&name.eof())
+			{
+				syc;
+				cout<<"ERR_Sentence_No_Readall"<<endl;
+				exit(0);
+			}
+			if (i<Sentence_Saver.Sentence_Number-1)
+			{
+				syc;
+				cout<<"ERR_Sentence_Name_Toofew"<<endl;
+				exit(0);
+			}
+		}
+		inline void cn_Test(int i)
+		{
+			if (i=Sentence_Saver.Sentence_Number-1&&cn.eof())
+			{
+				syc;
+				cout<<"ERR_Sentence_No_Readall"<<endl;
+				exit(0);
+			}
+			if (i<Sentence_Saver.Sentence_Number-1)
+			{
+				syc;
+				cout<<"ERR_Sentence_cn_Toofew"<<endl;
+				exit(0);
+			}
+		}
+		inline void en_Test(int i)
+		{
+			if (i=Sentence_Saver.Sentence_Number-1&&en.eof())
+			{
+				syc;
+				cout<<"ERR_Sentence_No_Readall"<<endl;
+				exit(0);
+			}
+			if (i<Sentence_Saver.Sentence_Number-1)
+			{
+				syc;
+				cout<<"ERR_Sentence_en_Toofew"<<endl;
+				exit(0);
+			}
+		}
+		void Sentence_Initialization_Centre()
+		{
+			syc;
+			
+			while (!Is_Language_pointed())
+			{
+				syc;
+				cout<<"Language selected failed.Please try again"<<endl;
+				cin>>language;
+				l1=l2=language;
+			}
+			syc;
+			if (Compare_language_function())
+			{
+				syc;
+				cout<<"Junk hacker...."<<endl;
+				syp;
+				exit(0);
+			}
+			if (l1==1) cout<<"语言服务初始化……"<<endl;
+			else cout<<"Sentence service initializating... ..."<<endl; 
+			int i=0;
+			ifstream name,en,cn;
+			name.open("/Language/Sentence_Name",ios::in);
+			en.open("/Language/EN/Sentence",ios::in);
+			cn.open("/Language/CN/Sentence",ios::in);
+			while (i<=Sentence_Saver.Sentence_Number-1&&(!name.eof()))
+			{
+				name>>Sentence_Saver.In_Program_Name[i];
+				i++;
+			}
+			Name_Test(i);
+			i=0;
+			while (i<=Sentence_Saver.Sentence_Number-1&&(!cn.eof()))
+			{
+				cn>>Sentence_Saver.Chinese_Sentence[i];
+				i++;
+			}
+			cn_Test(i);
+			i=0;
+			while (i<=Sentence_Saver.Sentence_Number-1&&(!en.eof()))
+			{
+				en>>Sentence_Saver.English_Sentence[i];
+				i++;
+			}
+			en_Test(i);
 		}
 } 
 int NumbO;
@@ -69,9 +192,9 @@ bool DFS_Check()
 
 void Dead()
 {
-    system("Cls");
+    syc;
     cout<<"Game Over!"<<endl;
-    cout<<"Your point is "<<(int)dq.size()<<endl;
+    cout<<"Your point is:"<<(int)dq.size()<<endl;
 }
 void Input()
 {
@@ -107,7 +230,7 @@ void Input()
 }
 void Init()
 {
-    system("Cls");
+    syc;
     srand((unsigned int)time(NULL));
     for(int i=0;i<=m+1;i++)
     {
@@ -145,7 +268,7 @@ void Init()
 }
 void Show()
 {
-    system("Cls");
+    syc;
     for(int i=0;i<=m+1;i++)
     {
         for(int j=0;j<=m+1;j++)
@@ -160,7 +283,7 @@ void Show()
         if(ShowTime<=0)
         {
             Dead();
-            system("pause");
+            syp;
             exit(0);
         }
     }
@@ -198,7 +321,7 @@ void Play()
         if(mp[nx][ny]=='&' || mp[nx][ny]=='@')
         {
             Dead();
-            system("pause");
+            syp;
             exit(0);
         }
         node fa;
@@ -265,7 +388,7 @@ void Choose_Mode()
         cout<<"Illegal input!"<<endl;
         exit(0);
     }
-    system("Cls");
+    syc;
 }
 int main()
 {
