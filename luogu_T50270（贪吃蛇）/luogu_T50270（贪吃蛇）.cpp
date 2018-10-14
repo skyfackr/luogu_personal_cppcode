@@ -7,17 +7,19 @@ struct node
 {
     int x,y;
 };
-class lang//”Ô—‘∫∫ªØ£∫skyfackr 
+class lang//Sinization by.skyfackr 
 {
 	private:
 		int language=0;//1:chinese 2:english
+		int l1,l2;
 		bool Is_Language_Initializated=false;
 		std::map<string,string> sentence;
 		struct Sentence_Saver
 		{
-			string In_Program_Name[13];
-			string English_Sentence[13];
-			string Chinese_Sentence[13];
+			const int Sentence_Number=16;
+			string In_Program_Name[Sentence_Number];
+			string English_Sentence[Sentence_Number];
+			string Chinese_Sentence[Sentence_Number];
 		}
 		void Sentence_Initialization_Centre()
 		{
@@ -77,6 +79,31 @@ void Input()
     cin>>m;
     cout<<"Input the Speed(ms)!"<<endl;
     cin>>Difficulty;
+    while (Difficulty<=0)
+    {
+    	cout<<endl;
+    	cout<<"Impossible Speed!"<<endl;
+    	cout<<"Input the Speed(ms)!"<<endl;
+    	cin>>Difficulty;
+    }
+    bool xxx=true;
+    while (Difficulty<=10&&xxx)
+    {
+    	cout<<endl<<"This will make your life hell.Are you sure?(y/n)"<<endl;
+    	char xxxx;
+    	cin>>xxxx;
+    	switch (xxxx)
+    	{
+    		case y:
+    			xxx=false;
+				continue;
+    		case n:
+    			cout<<"Input the Speed(ms)!"<<endl;
+    			cin>>Difficulty;
+    			continue;
+    	}
+    	cout<<"exm?"<<endl;
+    }
 }
 void Init()
 {
@@ -137,7 +164,7 @@ void Show()
             exit(0);
         }
     }
-    cout<<endl<<"Snake made by Zhao Zixuan"<<endl;
+    cout<<endl<<"Snake made by Zhao Zixuan"<<endl<<"Sinization powered by skyfackr"<<endl;
 }
 bool Check(int x,int y)
 {
