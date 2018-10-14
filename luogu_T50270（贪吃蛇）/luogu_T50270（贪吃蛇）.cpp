@@ -3,13 +3,14 @@
 #include<conio.h>
 #define syp system("pause")
 #define syc system("Cls")
+#define SentenceNumber 17  
 using namespace std;
 const int inf=1e9+7;
 struct node
 {
     int x,y;
 };
-class lang//Sinization by.skyfackr 
+class llang//Sinization by.skyfackr 
 {
 	private:
 		int language=0;//1:chinese 2:english
@@ -17,8 +18,8 @@ class lang//Sinization by.skyfackr
 		bool Is_Language_Initializated=false;
 		inline bool Is_Language_pointed()
 		{
-			if (language==0&&l1==0&&l2==0) return true;
-			else return false;
+			if (language==0&&l1==0&&l2==0) return false;
+			else return true;
 		}
 		inline bool Compare_language_function()
 		{
@@ -27,13 +28,14 @@ class lang//Sinization by.skyfackr
 		}
 		
 		std::map<string,string> sentence;
-		struct Sentence_Saver
+		struct Sentence_Saver1
 		{
-			const int Sentence_Number=16;
-			string In_Program_Name[Sentence_Number];
-			string English_Sentence[Sentence_Number];
-			string Chinese_Sentence[Sentence_Number];
-		}
+			
+			
+			string In_Program_Name[SentenceNumber];
+			string English_Sentence[SentenceNumber];
+			string Chinese_Sentence[SentenceNumber];
+		}Sentence_Saver;
 		inline string Sentence_found(string s)
 		{
 			return sentence[s];
@@ -63,51 +65,9 @@ class lang//Sinization by.skyfackr
 			}
 			return;
 		}
-		inline void Name_Test(int i)
-		{
-			if (i=Sentence_Saver.Sentence_Number-1&&name.eof())
-			{
-				syc;
-				cout<<"ERR_Sentence_No_Readall"<<endl;
-				exit(0);
-			}
-			if (i<Sentence_Saver.Sentence_Number-1)
-			{
-				syc;
-				cout<<"ERR_Sentence_Name_Toofew"<<endl;
-				exit(0);
-			}
-		}
-		inline void cn_Test(int i)
-		{
-			if (i=Sentence_Saver.Sentence_Number-1&&cn.eof())
-			{
-				syc;
-				cout<<"ERR_Sentence_No_Readall"<<endl;
-				exit(0);
-			}
-			if (i<Sentence_Saver.Sentence_Number-1)
-			{
-				syc;
-				cout<<"ERR_Sentence_cn_Toofew"<<endl;
-				exit(0);
-			}
-		}
-		inline void en_Test(int i)
-		{
-			if (i=Sentence_Saver.Sentence_Number-1&&en.eof())
-			{
-				syc;
-				cout<<"ERR_Sentence_No_Readall"<<endl;
-				exit(0);
-			}
-			if (i<Sentence_Saver.Sentence_Number-1)
-			{
-				syc;
-				cout<<"ERR_Sentence_en_Toofew"<<endl;
-				exit(0);
-			}
-		}
+		
+		
+		
 		void Sentence_Initialization_Centre()
 		{
 			syc;
@@ -134,33 +94,73 @@ class lang//Sinization by.skyfackr
 			name.open("/Language/Sentence_Name",ios::in);
 			en.open("/Language/EN/Sentence",ios::in);
 			cn.open("/Language/CN/Sentence",ios::in);
-			while (i<=Sentence_Saver.Sentence_Number-1&&(!name.eof()))
+			while (i<=SentenceNumber-1&&(!name.eof()))
 			{
 				name>>Sentence_Saver.In_Program_Name[i];
 				i++;
 			}
-			Name_Test(i);
+			string ttt=Sentence_Saver.In_Program_Name[1];
+			cout<<ttt;
+			if (i==SentenceNumber-1&&name.eof())
+			{
+				syc;
+				cout<<"ERR_Sentence_No_Readall"<<endl;
+				exit(0);
+			}
+			if (i<SentenceNumber-1)
+			{
+				syc;
+				cout<<"ERR_Sentence_Name_Toofew"<<endl;
+				exit(0);
+			}
+		
 			i=0;
-			while (i<=Sentence_Saver.Sentence_Number-1&&(!cn.eof()))
+			while (i<=SentenceNumber-1&&(!cn.eof()))
 			{
 				cn>>Sentence_Saver.Chinese_Sentence[i];
 				i++;
 			}
-			cn_Test(i);
+			
+			if (i==SentenceNumber-1&&cn.eof())
+			{
+				syc;
+				cout<<"ERR_Sentence_No_Readall"<<endl;
+				exit(0);
+			}
+			if (i<SentenceNumber-1)
+			{
+				syc;
+				cout<<"ERR_Sentence_cn_Toofew"<<endl;
+				exit(0);
+			}
+		
 			i=0;
-			while (i<=Sentence_Saver.Sentence_Number-1&&(!en.eof()))
+			while (i<=SentenceNumber-1&&(!en.eof()))
 			{
 				en>>Sentence_Saver.English_Sentence[i];
 				i++;
 			}
-			en_Test(i);
+			
+			if (i==SentenceNumber-1&&en.eof())
+			{
+				syc;
+				cout<<"ERR_Sentence_No_Readall"<<endl;
+				exit(0);
+			}
+			if (i<SentenceNumber-1)
+			{
+				syc;
+				cout<<"ERR_Sentence_en_Toofew"<<endl;
+				exit(0);
+			}
+		
 			name.close();
 			cn.close();
 			en.close();
 			if (language==1)
 			{
 				system("title Ì°³ÔÉß by ZZX");
-				for (int j=0;j<=Sentence_Saver.Sentence_Number-1;j++)
+				for (int j=0;j<=SentenceNumber-1;j++)
 				{
 					sentence[Sentence_Saver.In_Program_Name[i]]=Sentence_Saver.Chinese_Sentence[i];
 				}
@@ -168,7 +168,7 @@ class lang//Sinization by.skyfackr
 			else
 			{
 				system("title Snake by ZZX");
-				for (int j=0;j<=Sentence_Saver.Sentence_Number-1;j++)
+				for (int j=0;j<=SentenceNumber-1;j++)
 				{
 					sentence[Sentence_Saver.In_Program_Name[i]]=Sentence_Saver.English_Sentence[i];
 				}
@@ -177,7 +177,7 @@ class lang//Sinization by.skyfackr
 			Is_Language_Initializated=true;
 			return;
 		}
-		inline void language_get(int x)
+		inline void language_get()
 		{
 			l1=l2=language;
 		}
@@ -202,11 +202,13 @@ class lang//Sinization by.skyfackr
 				cout<<"1,¼òÌåÖÐÎÄ"<<endl<<"2,English"<<endl;
 				cin>>x;
 			} 
-			language_get(x);
+			language=x;
+			language_get();
 			Sentence_Initialization_Centre();
 			LangERR_fixed();
 		}
-} 
+}; 
+llang lang;
 int NumbO;
 int OriTime;
 int TLimit;
@@ -251,39 +253,39 @@ bool DFS_Check()
 void Dead()
 {
     syc;
-    cout<<"Game Over!"<<endl;
-    cout<<"Your point is:"<<(int)dq.size()<<endl;
+    cout<<lang.findword("lose")<<endl;
+    cout<<lang.findword("losepoint")<<(int)dq.size()<<endl;
 }
 void Input()
 {
-    cout<<"Input the size!"<<endl;
+    cout<<lang.findword("sizein")<<endl;
     cin>>m;
-    cout<<"Input the Speed(ms)!"<<endl;
+    cout<<lang.findword("speedin")<<endl;
     cin>>Difficulty;
     while (Difficulty<=0)
     {
     	cout<<endl;
-    	cout<<"Impossible Speed!"<<endl;
-    	cout<<"Input the Speed(ms)!"<<endl;
+    	cout<<lang.findword("errspeed")<<endl;
+    	cout<<lang.findword("speedin")<<endl;
     	cin>>Difficulty;
     }
     bool xxx=true;
     while (Difficulty<=10&&xxx)
     {
-    	cout<<endl<<"This will make your life hell.Are you sure?(y/n)"<<endl;
+    	cout<<endl<<lang.findword("hellspeed")<<endl;
     	char xxxx;
     	cin>>xxxx;
     	switch (xxxx)
     	{
-    		case y:
+    		case 'y':
     			xxx=false;
 				continue;
-    		case n:
-    			cout<<"Input the Speed(ms)!"<<endl;
+    		case 'n':
+    			cout<<lang.findword("speedin")<<endl;
     			cin>>Difficulty;
     			continue;
     	}
-    	cout<<"exm?"<<endl;
+    	cout<<lang.findword("hellspeedinerr")<<endl;
     }
 }
 void Init()
@@ -337,7 +339,7 @@ void Show()
     {
         int CurTime=clock();
         int ShowTime=TLimit-(CurTime-OriTime);
-        cout<<"Time left:"<<(ShowTime+0.0)/1000.0<<"s"<<endl;
+        cout<<lang.findword("ltime")<<(ShowTime+0.0)/1000.0<<lang.findword("ltimes")<<endl;
         if(ShowTime<=0)
         {
             Dead();
@@ -420,11 +422,11 @@ void Play()
 void Choose_Mode()
 {
     reset:
-	cout<<"Please choose your mode"<<endl;
-    cout<<"1:Original mode"<<endl;
-    cout<<"2:Time limit mode"<<endl;
-    cout<<"3:Object mode"<<endl;
-    cout<<"4:Reset language"<<endl;
+	cout<<lang.findword("selectmode")<<endl;
+    cout<<lang.findword("mode1")<<endl;
+    cout<<lang.findword("mode2")<<endl;
+    cout<<lang.findword("mode3")<<endl;
+    cout<<lang.findword("mode4")<<endl;
     int tmpm;
     cin>>tmpm;
     if(tmpm==1)
@@ -434,24 +436,24 @@ void Choose_Mode()
     else if(tmpm==2)
     {
         Mode=2;
-        cout<<endl<<"Input the time limit(s)"<<endl;
+        cout<<endl<<lang.findword("timein")<<endl;
         cin>>TLimit;
         TLimit*=1000;
     }
     else if(tmpm==3)
     {
         Mode=3;
-        cout<<endl<<"Input the number of objects"<<endl;
+        cout<<endl<<lang.findword("objin")<<endl;
         cin>>NumbO;
     }
     else if(tmpm==4)
     {
-    	lang::languagehold();
+    	lang.languagehold();
     	goto reset;
     }
     else
     {
-        cout<<"Illegal input!"<<endl;
+        cout<<lang.findword("illin")<<endl;
         exit(0);
     }
     syc;
@@ -462,7 +464,7 @@ int main()
 //	freopen(".out","w",stdout);
     ios_base::sync_with_stdio(false);
 //	system("color 9E");
-    lang::languagehold();
+    lang.languagehold();
     Choose_Mode();
     Input();
     Init();
