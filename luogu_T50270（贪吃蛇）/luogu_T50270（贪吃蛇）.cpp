@@ -97,7 +97,7 @@ class llang//Sinization by.skyfackr
 			while (i<=SentenceNumber-1&&(!name.eof()))
 			{
 				name>>Sentence_Saver.In_Program_Name[i];
-				cout<<Sentence_Saver.In_Program_Name[i]<<endl;
+				
 				i++;
 			}
 		
@@ -177,16 +177,16 @@ class llang//Sinization by.skyfackr
 			Is_Language_Initializated=true;
 			return;
 		}
-		inline void language_get()
+		inline void language_get(int x)
 		{
-			l1=l2=language;
+			l1=l2=language=x;
 		}
 	public:
 		string findword(string s)
 		{
 			LangERR_fixed();
-			string ss=Sentence_found(s);
-			return ss;
+			return Sentence_found(s);
+			
 		}
 		void languagehold()
 		{
@@ -202,8 +202,8 @@ class llang//Sinization by.skyfackr
 				cout<<"1,¼òÌåÖÐÎÄ"<<endl<<"2,English"<<endl;
 				cin>>x;
 			} 
-			language=x;
-			language_get();
+			
+			language_get(x);
 			Sentence_Initialization_Centre();
 			LangERR_fixed();
 		}
@@ -421,7 +421,7 @@ void Play()
 }
 void Choose_Mode()
 {
-    
+    reset:
 	cout<<lang.findword("selectmode")<<endl;
     cout<<lang.findword("mode1")<<endl;
     cout<<lang.findword("mode2")<<endl;
@@ -449,7 +449,7 @@ void Choose_Mode()
     else if(tmpm==4)
     {
     	lang.languagehold();
-    	Choose_Mode();
+    	goto reset;
     }
     else
     {
