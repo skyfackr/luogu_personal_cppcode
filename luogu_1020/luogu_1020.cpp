@@ -8,7 +8,7 @@ int onmiddleget(int x)
 	int l=1;
 	int r=ans;
 	int m=(ans+1)/2;
-	while (l<r)
+	while (l<r-1)
 	{
 		if (on[m]==x)
 		{
@@ -18,6 +18,7 @@ int onmiddleget(int x)
 		}
 		else if (on[m]>x) r=m;
 		else l=m;
+		m=(l+r)/2;
 	}
 	return l;
 }
@@ -26,7 +27,7 @@ int downmiddleget(int x)
 	int l=1;
 	int r=ans;
 	int m=(ans+1)/2;
-	while (l<r)
+	while (l<r-1)
 	{
 		if (down[m]==x)
 		{
@@ -36,7 +37,9 @@ int downmiddleget(int x)
 		}
 		else if (down[m]<x) r=m;
 		else l=m;
+		m=(l+r)/2;
 	}
+	if (down[l]!=down[r]) return r;
 	return l;
 }
 void onpush(int x)
@@ -64,7 +67,7 @@ int main()
 	};*/
 //	cout<<"test"<<endl;
 	ans=1;
-	down[1]=he[i];
+	down[1]=he[1];
 	for (i=2;i<=n;i++)
 	{
 		if (down[ans]>he[i]) downpush(he[i]);
