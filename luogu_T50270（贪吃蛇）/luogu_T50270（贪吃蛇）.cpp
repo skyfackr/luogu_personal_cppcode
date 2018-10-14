@@ -2,7 +2,7 @@
 #include<windows.h>
 #include<conio.h>
 #define syp system("pause")
-#define syc system("Cls")
+#define syc system("cls")
 #define SentenceNumber 17  
 using namespace std;
 const int inf=1e9+7;
@@ -26,7 +26,7 @@ class llang//Sinization by.skyfackr
 			if (language!=l1||l1!=l2||language!=l2) return true;
 			else return false;
 		}
-		
+		//sentence
 		std::map<string,string> sentence;
 		struct Sentence_Saver1
 		{
@@ -97,10 +97,10 @@ class llang//Sinization by.skyfackr
 			while (i<=SentenceNumber-1&&(!name.eof()))
 			{
 				name>>Sentence_Saver.In_Program_Name[i];
+				cout<<Sentence_Saver.In_Program_Name[i]<<endl;
 				i++;
 			}
-			string ttt=Sentence_Saver.In_Program_Name[1];
-			cout<<ttt;
+		
 			if (i==SentenceNumber-1&&name.eof())
 			{
 				syc;
@@ -162,7 +162,7 @@ class llang//Sinization by.skyfackr
 				system("title Ì°³ÔÉß by ZZX");
 				for (int j=0;j<=SentenceNumber-1;j++)
 				{
-					sentence[Sentence_Saver.In_Program_Name[i]]=Sentence_Saver.Chinese_Sentence[i];
+					sentence[Sentence_Saver.In_Program_Name[j]]=Sentence_Saver.Chinese_Sentence[j];
 				}
 			}
 			else
@@ -170,7 +170,7 @@ class llang//Sinization by.skyfackr
 				system("title Snake by ZZX");
 				for (int j=0;j<=SentenceNumber-1;j++)
 				{
-					sentence[Sentence_Saver.In_Program_Name[i]]=Sentence_Saver.English_Sentence[i];
+					sentence[Sentence_Saver.In_Program_Name[j]]=Sentence_Saver.English_Sentence[j];
 				}
 			}
 			syc;
@@ -185,8 +185,8 @@ class llang//Sinization by.skyfackr
 		string findword(string s)
 		{
 			LangERR_fixed();
-			return Sentence_found(s);
-			
+			string ss=Sentence_found(s);
+			return ss;
 		}
 		void languagehold()
 		{
@@ -421,7 +421,7 @@ void Play()
 }
 void Choose_Mode()
 {
-    reset:
+    
 	cout<<lang.findword("selectmode")<<endl;
     cout<<lang.findword("mode1")<<endl;
     cout<<lang.findword("mode2")<<endl;
@@ -449,7 +449,7 @@ void Choose_Mode()
     else if(tmpm==4)
     {
     	lang.languagehold();
-    	goto reset;
+    	Choose_Mode();
     }
     else
     {
