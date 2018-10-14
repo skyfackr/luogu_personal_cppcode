@@ -8,7 +8,7 @@ int onmiddleget(int x)
 	int l=1;
 	int r=ans;
 	int m=(ans+1)/2;
-	while (l<r-1)
+	while (l<r)
 	{
 		if (on[m]==x)
 		{
@@ -17,17 +17,18 @@ int onmiddleget(int x)
 			r=m;
 		}
 		else if (on[m]>x) r=m;
-		else l=m;
+		else l=m+1;
 		m=(l+r)/2;
 	}
-	return l;
+//	if (on[l]!=on[r]) return r;
+	return r;
 }
 int downmiddleget(int x)
 {
 	int l=1;
 	int r=ans;
 	int m=(ans+1)/2;
-	while (l<r-1)
+	while (l<r)
 	{
 		if (down[m]==x)
 		{
@@ -36,11 +37,11 @@ int downmiddleget(int x)
 			r=m;
 		}
 		else if (down[m]<x) r=m;
-		else l=m;
+		else l=m+1;
 		m=(l+r)/2;
 	}
-	if (down[l]!=down[r]) return r;
-	return l;
+//	if (down[l]!=down[r]) return r;
+	return r;
 }
 void onpush(int x)
 {
