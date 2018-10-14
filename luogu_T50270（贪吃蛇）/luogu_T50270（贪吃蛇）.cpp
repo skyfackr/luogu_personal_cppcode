@@ -7,7 +7,17 @@ struct node
 {
     int x,y;
 };
-
+class lang//”Ô—‘∫∫ªØ£∫skyfackr 
+{
+	private:
+		int language=0;//1:chinese 2:english
+		bool Is_Language_Initializated=false;
+		std::map<string,string> sentence;
+		void Sentence_Initialization_Centre()
+		{
+			
+		}
+} 
 int NumbO;
 int OriTime;
 int TLimit;
