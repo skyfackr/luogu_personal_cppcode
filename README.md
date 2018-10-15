@@ -1,4 +1,7 @@
-﻿# luogu_personal_cppcode
+﻿#洛谷个人评测代码合集
+# luogu_personal_cppcode
+#Made By.SkyFackr
+
 本项目专门用于收集本人在洛咕上的cpp代码
 欢迎四方大神前来diss本喵的bug
 
