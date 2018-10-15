@@ -66,7 +66,12 @@ class llang//Sinization by.skyfackr
 			return;
 		}
 		
-		
+		inline void FileERR_Openfailed(string x)
+		{
+			cout<<"ERR_File_Open_Failed_"<<x<<endl;
+			syp;
+			exit(0);
+		}
 		
 		void Sentence_Initialization_Centre()
 		{
@@ -87,67 +92,72 @@ class llang//Sinization by.skyfackr
 				syp;
 				exit(0);
 			}
+			system("title Snake(Loading)");
 			if (l1==1) cout<<"语言服务初始化……"<<endl;
 			else cout<<"Sentence service initializating... ..."<<endl; 
-			int i=0;
+			int i=1;
 			ifstream name,en,cn;
-			name.open("/Language/Sentence_Name",ios::in);
-			en.open("/Language/EN/Sentence",ios::in);
-			cn.open("/Language/CN/Sentence",ios::in);
-			while (i<=SentenceNumber-1&&(!name.eof()))
+			name.open("Language/Sentence_Name",ios::in);
+			en.open("Language/EN/Sentence",ios::in);
+			cn.open("Language/CN/Sentence",ios::in);
+			if (!name.is_open()) FileERR_Openfailed("name");
+			if (!cn.is_open()) FileERR_Openfailed("cn");
+			if (!en.is_open()) FileERR_Openfailed("en");
+			while (i<=SentenceNumber&&(!name.eof()))
 			{
-				name>>Sentence_Saver.In_Program_Name[i];
-				
+				getline(name,Sentence_Saver.In_Program_Name[i]);
+				//cout<<i<<endl;
+				//getline(cin,Sentence_Saver.In_Program_Name[i]);
 				i++;
 			}
 		
-			if (i==SentenceNumber-1&&name.eof())
+			if (i==SentenceNumber&&name.eof())
 			{
 				syc;
 				cout<<"ERR_Sentence_No_Readall"<<endl;
 				exit(0);
 			}
-			if (i<SentenceNumber-1)
+			if (i<SentenceNumber)
 			{
 				syc;
 				cout<<"ERR_Sentence_Name_Toofew"<<endl;
 				exit(0);
 			}
 		
-			i=0;
-			while (i<=SentenceNumber-1&&(!cn.eof()))
+			i=1;
+			while (i<=SentenceNumber&&(!cn.eof()))
 			{
-				cn>>Sentence_Saver.Chinese_Sentence[i];
+				getline(cn,Sentence_Saver.Chinese_Sentence[i]);
 				i++;
 			}
 			
-			if (i==SentenceNumber-1&&cn.eof())
+			if (i==SentenceNumber&&cn.eof())
 			{
 				syc;
 				cout<<"ERR_Sentence_No_Readall"<<endl;
 				exit(0);
 			}
-			if (i<SentenceNumber-1)
+			if (i<SentenceNumber)
 			{
 				syc;
 				cout<<"ERR_Sentence_cn_Toofew"<<endl;
 				exit(0);
 			}
 		
-			i=0;
-			while (i<=SentenceNumber-1&&(!en.eof()))
+			i=1;
+			while (i<=SentenceNumber&&(!en.eof()))
 			{
-				en>>Sentence_Saver.English_Sentence[i];
+				getline(en,Sentence_Saver.English_Sentence[i]);
 				i++;
 			}
 			
-			if (i==SentenceNumber-1&&en.eof())
+			if (i==SentenceNumber&&en.eof())
 			{
 				syc;
 				cout<<"ERR_Sentence_No_Readall"<<endl;
 				exit(0);
 			}
-			if (i<SentenceNumber-1)
+			if (i<SentenceNumber)
 			{
 				syc;
 				cout<<"ERR_Sentence_en_Toofew"<<endl;
@@ -160,7 +170,7 @@ class llang//Sinization by.skyfackr
 			if (language==1)
 			{
 				system("title 贪吃蛇 by ZZX");
-				for (int j=0;j<=SentenceNumber-1;j++)
+				for (int j=1;j<=SentenceNumber;j++)
 				{
 					sentence[Sentence_Saver.In_Program_Name[j]]=Sentence_Saver.Chinese_Sentence[j];
 				}
@@ -168,7 +178,7 @@ class llang//Sinization by.skyfackr
 			else
 			{
 				system("title Snake by ZZX");
-				for (int j=0;j<=SentenceNumber-1;j++)
+				for (int j=1;j<=SentenceNumber;j++)
 				{
 					sentence[Sentence_Saver.In_Program_Name[j]]=Sentence_Saver.English_Sentence[j];
 				}
@@ -198,6 +208,7 @@ class llang//Sinization by.skyfackr
 			cin>>x;
 			while (x!=1&&x!=2)
 			{
+				syc;
 				cout<<"exm???????"<<endl<<"选择你的语言"<<endl<<"Select your language"<<endl;
 				cout<<"1,简体中文"<<endl<<"2,English"<<endl;
 				cin>>x;
