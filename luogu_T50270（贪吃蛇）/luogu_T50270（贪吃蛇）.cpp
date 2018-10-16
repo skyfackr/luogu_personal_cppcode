@@ -1,6 +1,7 @@
 #include<bits/stdc++.h>
 #include<windows.h>
 #include<conio.h>
+#define ll long long
 #define syp system("pause")
 #define syc system("cls")
 #define SentenceNumber 17  
@@ -9,6 +10,121 @@ const int inf=1e9+7;
 struct node
 {
     int x,y;
+};
+class lang_Database
+{
+	private:
+		struct lang_Saver
+		{
+			ll id;
+			string sentence;
+		};
+		lang_Saver saver[SentenceNumber];
+		int nowsentence=0;
+		ll Dataname_IDGet(string s,ll lastnumber)
+		{
+			if (s.empty()) return lastnumber;
+			lastnumber=lastnumber*100+s.at(0);
+			s.erase(0,1);
+			lastnumber=Dataname_IDGet(s,lastnumber);
+			return lastnumber;
+		}
+		static bool compare(lang_Saver a,lang_Saver b)
+		{
+			return a.id<=b.id;
+		}
+		inline void saversort()
+		{
+			sort(saver,saver+SentenceNumber,compare);
+			return;
+		}
+		inline void Now_Sentence_Reset()
+		{
+			nowsentence=0;
+			return;
+		}
+		void Sentence_InInsert(string name,string sentence)
+		{
+			ll id;
+			id=Dataname_IDGet(name,0);
+			saver[nowsentence].id=id;
+			saver[nowsentence].sentence=sentence;
+			nowsentence++;
+		}
+		inline void Data404ERR(string s)
+		{
+			syc;
+			cout<<"ERR_SENTENCE_NAME_"<<s<<"_NOT_FOUND"<<endl;
+			syp;
+			exit(0);
+		}
+		int Data_Finder(string name)
+		{
+			ll id;
+			int mb=-1;
+			id=Dataname_IDGet(name,0);
+			int l=0;
+			int r=SentenceNumber;
+			int m;
+			while (l<=r)
+			{
+				if (l==r)
+				{
+					if (saver[l].id==id) 
+					{
+						mb=l;
+						break;
+					}
+					else
+					{
+						l=r+1;
+						break;
+					}
+				}
+				m=(l+r+1)/2;
+				if (saver[m].id==id)
+				{
+					mb=m;
+					break;
+				}
+				else if(saver[m].id>id)
+				{
+					l=m+1;
+				}
+				else
+				{
+					r=m-1;
+				}
+			}
+			if (mb==-1&&l>r)
+			{
+				Data404ERR(name);
+			}
+			else return mb;
+		}
+		inline string Data_Get(int x)
+		{
+			return saver[x].sentence;
+		}
+	protected:
+		void datareset()
+		{
+			Now_Sentence_Reset();
+		}
+		void datasort()
+		{
+			saversort();
+		}
+		void datainsert(string n,string s)
+		{
+			Sentence_InInsert(n,s);
+		}
+		string dataget(string n)
+		{
+			int x;
+			x=Data_Finder(n);
+			return Data_Get(x);
+		}
 };
 class llang//Sinization by.skyfackr 
 {
