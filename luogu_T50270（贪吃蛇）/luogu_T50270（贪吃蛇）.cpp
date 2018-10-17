@@ -64,7 +64,7 @@ class lang_Database
 			int mb=-1;
 			id=Dataname_IDGet(name,0);
 			int l=0;
-			int r=SentenceNumber;
+			int r=SentenceNumber-1;
 			int m;
 			while (l<=r)
 			{
@@ -126,7 +126,7 @@ class lang_Database
 			return Data_Get(x);
 		}
 };
-class llang//Sinization by.skyfackr 
+class llang:public lang_Database//Sinization by.skyfackr 
 {
 	private:
 		int language=0;//1:chinese 2:english
@@ -143,7 +143,7 @@ class llang//Sinization by.skyfackr
 			else return false;
 		}
 		//sentence
-		std::map<string,string> sentence;
+		//std::map<string,string> sentence;
 		struct Sentence_Saver1
 		{
 			
@@ -152,9 +152,9 @@ class llang//Sinization by.skyfackr
 			string English_Sentence[SentenceNumber];
 			string Chinese_Sentence[SentenceNumber];
 		}Sentence_Saver;
-		inline string Sentence_found(string s)
+		inline string Sentence_found(string s)// dataget(string n)
 		{
-			return sentence[s];
+			return dataget(s);
 		}
 		void LangERR_fixed()
 		{
@@ -227,7 +227,7 @@ class llang//Sinization by.skyfackr
 				i++;
 			}
 		
-			if (i==SentenceNumber&&name.eof())
+			if (i>=SentenceNumber&&name.eof())
 			{
 				syc;
 				cout<<"ERR_Sentence_No_Readall"<<endl;
@@ -239,7 +239,7 @@ class llang//Sinization by.skyfackr
 				cout<<"ERR_Sentence_Name_Toofew"<<endl;
 				exit(0);
 			}
-		
+		/*中文部分暂时屏蔽 20181017 问题：字符串码兼容 
 			i=1;
 			while (i<=SentenceNumber&&(!cn.eof()))
 			{
@@ -247,7 +247,7 @@ class llang//Sinization by.skyfackr
 				i++;
 			}
 			
-			if (i==SentenceNumber&&cn.eof())
+			if (i>=SentenceNumber&&cn.eof())
 			{
 				syc;
 				cout<<"ERR_Sentence_No_Readall"<<endl;
@@ -258,7 +258,7 @@ class llang//Sinization by.skyfackr
 				syc;
 				cout<<"ERR_Sentence_cn_Toofew"<<endl;
 				exit(0);
-			}
+			}*/
 		
 			i=1;
 			while (i<=SentenceNumber&&(!en.eof()))
@@ -267,7 +267,7 @@ class llang//Sinization by.skyfackr
 				i++;
 			}
 			
-			if (i==SentenceNumber&&en.eof())
+			if (i>=SentenceNumber&&en.eof())
 			{
 				syc;
 				cout<<"ERR_Sentence_No_Readall"<<endl;
@@ -283,12 +283,13 @@ class llang//Sinization by.skyfackr
 			name.close();
 			cn.close();
 			en.close();
+			datareset();//datainsert(string n,string s)
 			if (language==1)
 			{
 				system("title 贪吃蛇 by ZZX");
 				for (int j=1;j<=SentenceNumber;j++)
 				{
-					sentence[Sentence_Saver.In_Program_Name[j]]=Sentence_Saver.Chinese_Sentence[j];
+					datainsert(Sentence_Saver.In_Program_Name[j],Sentence_Saver.Chinese_Sentence[j]);
 				}
 			}
 			else
@@ -296,14 +297,15 @@ class llang//Sinization by.skyfackr
 				system("title Snake by ZZX");
 				for (int j=1;j<=SentenceNumber;j++)
 				{
-					sentence[Sentence_Saver.In_Program_Name[j]]=Sentence_Saver.English_Sentence[j];
+					datainsert(Sentence_Saver.In_Program_Name[j],Sentence_Saver.English_Sentence[j]);
 				}
 			}
 			syc;
+			datasort();
 			Is_Language_Initializated=true;
 			return;
 		}
-		inline void language_get(int x)
+		inline void language_get(int x) 
 		{
 			l1=l2=language=x;
 		}
@@ -318,17 +320,24 @@ class llang//Sinization by.skyfackr
 		{
 			syc;
 			system("title Snake(choose language)");
+			regetlanguage:
 			int x;
 			cout<<"选择你的语言"<<endl<<"Select your language"<<endl;
 			cout<<"1,简体中文"<<endl<<"2,English"<<endl;
 			cin>>x;
-			while (x!=1&&x!=2)
+			if (x!=1&&x!=2)
 			{
 				syc;
-				cout<<"exm???????"<<endl<<"选择你的语言"<<endl<<"Select your language"<<endl;
-				cout<<"1,简体中文"<<endl<<"2,English"<<endl;
-				cin>>x;
+				cout<<"exm???????"<<endl;
+				goto regetlanguage;
 			} 
+			//中文部分暂时屏蔽 20181017 问题：字符串码兼容
+			if (x==1)
+			{
+				syc;
+				cout<<"由于双语言框架中文部分兼容性问题，目前暂时关闭中文系统，请等本咕修复"<<endl;
+				goto regetlanguage; 
+			}
 			
 			language_get(x);
 			Sentence_Initialization_Centre();
