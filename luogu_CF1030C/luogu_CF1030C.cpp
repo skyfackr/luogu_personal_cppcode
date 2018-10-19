@@ -13,7 +13,8 @@ void finder(int noww,int nowzz,int nowfw)//当前判断 当前指针 当前分的数
 			cout<<"YES"<<endl;
 			exit(0);
 		}
-		if (a[nowzz+1]==0) finder()
+		if (a[nowzz+1]==0) finder(noww,nowzz+1,nowfw);
+		else
 		finder(noww,nowzz+1,0);
 	}
 	else if (nowfw<noww)
