@@ -530,10 +530,10 @@ void Play()
         if(_kbhit())
         {
         	char ch=_getch();
-        	if(ch==119) dir=4;
-        	if(ch==97) dir=3;
-        	if(ch==115) dir=2;
-        	if(ch==100) dir=1;
+        	if(ch==119&&!((int)dq.size()!=1&&dir==2)) dir=4;
+        	if(ch==97&&!((int)dq.size()!=1&&dir==1)) dir=3;
+        	if(ch==115&&!((int)dq.size()!=1&&dir==4)) dir=2;
+        	if(ch==100&&!((int)dq.size()!=1&&dir==3)) dir=1;
         }
         
         int x=dq.front().x;
