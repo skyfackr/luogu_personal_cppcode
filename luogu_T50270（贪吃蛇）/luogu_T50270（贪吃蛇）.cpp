@@ -148,9 +148,9 @@ class llang:public lang_Database//Sinization by.skyfackr
 		{
 			
 			
-			string In_Program_Name[SentenceNumber];
-			string English_Sentence[SentenceNumber];
-			string Chinese_Sentence[SentenceNumber];
+			string In_Program_Name[SentenceNumber+1];
+			string English_Sentence[SentenceNumber+1];
+			string Chinese_Sentence[SentenceNumber+1];
 		}Sentence_Saver;
 		inline string Sentence_found(string s)// dataget(string n)
 		{
@@ -230,7 +230,7 @@ class llang:public lang_Database//Sinization by.skyfackr
 			if (i>=SentenceNumber&&name.eof())
 			{
 				syc;
-				cout<<"ERR_Sentence_No_Readall"<<endl;
+				cout<<"ERR_Sentence_Name_No_Readall"<<endl;
 				exit(0);
 			}
 			if (i<SentenceNumber)
@@ -240,6 +240,7 @@ class llang:public lang_Database//Sinization by.skyfackr
 				exit(0);
 			}
 		//中文部分暂时屏蔽 20181017 问题：字符串码兼容 
+		//重新开放 20181019 
 			if (language==1)
 			{
 			
@@ -247,13 +248,14 @@ class llang:public lang_Database//Sinization by.skyfackr
 			while (i<=SentenceNumber&&(!cn.eof()))
 			{
 				getline(cn,Sentence_Saver.Chinese_Sentence[i]);
+			//	cout<<Sentence_Saver.Chinese_Sentence[i]<<endl;
 				i++;
 			}
 			
-			if (i>=SentenceNumber&&cn.eof())
+			if (i>=SentenceNumber&&!(cn.eof()))
 			{
 				syc;
-				cout<<"ERR_Sentence_No_Readall"<<endl;
+				cout<<"ERR_Sentence_Cn_No_Readall"<<endl;
 				exit(0);
 			}
 			if (i<SentenceNumber)
@@ -273,10 +275,10 @@ class llang:public lang_Database//Sinization by.skyfackr
 				i++;
 			}
 			
-			if (i>=SentenceNumber&&en.eof())
+			if (i>=SentenceNumber&&!(en.eof()))
 			{
 				syc;
-				cout<<"ERR_Sentence_No_Readall"<<endl;
+				cout<<"ERR_Sentence_En_No_Readall"<<endl;
 				exit(0);
 			}
 			if (i<SentenceNumber)
@@ -334,7 +336,8 @@ class llang:public lang_Database//Sinization by.skyfackr
 			char rech=_getch();
 			x=rech-'0';
 			//强制启动中文 按c 
-			if (x==51)
+			//已经没有这个必要了 
+			/*if (x==51)
 			{
 				syc;
 				cout<<"当前中文框架加载模块可能存在严重的兼容性问题，确定启动？(y/n)"<<endl; 
@@ -352,7 +355,7 @@ class llang:public lang_Database//Sinization by.skyfackr
 					goto regetlanguage;
 				}
 				else goto reaskforcestart;
-			} 
+			} */
 			if (x!=1&&x!=2)
 			{
 				syc;
@@ -360,14 +363,15 @@ class llang:public lang_Database//Sinization by.skyfackr
 				goto regetlanguage;
 			} 
 			//中文部分暂时屏蔽 20181017 问题：字符串码兼容
-			
-			if (x==1)
+			//重新开放 20181019
+			//已经没有这个必要了 
+			/*if (x==1)
 			{
 				syc;
 				cout<<"由于双语言框架中文部分兼容性问题，目前暂时关闭中文系统，请等本咕修复"<<endl;
 				goto regetlanguage; 
 			}
-			forcestart:
+			forcestart:*/
 			language_get(x);
 			Sentence_Initialization_Centre();
 			LangERR_fixed();
