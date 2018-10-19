@@ -593,7 +593,10 @@ void Choose_Mode()
     cout<<lang.findword("mode3")<<endl;
     cout<<lang.findword("mode4")<<endl;
     int tmpm;
-    cin>>tmpm;
+    char ctmpm;
+    while (!_kbhit()) continue;
+    ctmpm=_getch();
+    tmpm=ctmpm-'0';
     if(tmpm==1)
     {
         Mode=1;
@@ -618,8 +621,9 @@ void Choose_Mode()
     }
     else
     {
-        cout<<lang.findword("illin")<<endl;
-        exit(0);
+        syc;
+		cout<<lang.findword("illin")<<endl;
+        goto reset;
     }
     syc;
 }
