@@ -87,7 +87,7 @@ class lang_Database
 					mb=m;
 					break;
 				}
-				else if(saver[m].id>id)
+				else if(saver[m].id<id)
 				{
 					l=m+1;
 				}
@@ -239,7 +239,10 @@ class llang:public lang_Database//Sinization by.skyfackr
 				cout<<"ERR_Sentence_Name_Toofew"<<endl;
 				exit(0);
 			}
-		/*中文部分暂时屏蔽 20181017 问题：字符串码兼容 
+		//中文部分暂时屏蔽 20181017 问题：字符串码兼容 
+			if (language==1)
+			{
+			
 			i=1;
 			while (i<=SentenceNumber&&(!cn.eof()))
 			{
@@ -258,8 +261,11 @@ class llang:public lang_Database//Sinization by.skyfackr
 				syc;
 				cout<<"ERR_Sentence_cn_Toofew"<<endl;
 				exit(0);
-			}*/
-		
+			}
+			}
+			else
+			{
+			
 			i=1;
 			while (i<=SentenceNumber&&(!en.eof()))
 			{
@@ -279,7 +285,7 @@ class llang:public lang_Database//Sinization by.skyfackr
 				cout<<"ERR_Sentence_en_Toofew"<<endl;
 				exit(0);
 			}
-		
+			}
 			name.close();
 			cn.close();
 			en.close();
@@ -324,7 +330,29 @@ class llang:public lang_Database//Sinization by.skyfackr
 			int x;
 			cout<<"选择你的语言"<<endl<<"Select your language"<<endl;
 			cout<<"1,简体中文"<<endl<<"2,English"<<endl;
-			cin>>x;
+			while (!_kbhit()) continue;
+			char rech=_getch();
+			x=rech-'0';
+			//强制启动中文 按c 
+			if (x==51)
+			{
+				syc;
+				cout<<"当前中文框架加载模块可能存在严重的兼容性问题，确定启动？(y/n)"<<endl; 
+				reaskforcestart:
+				while (!_kbhit()) continue;
+				rech=_getch();
+				if (rech=='y')
+				{
+					x=1;
+					goto forcestart;
+				}
+				else if (rech=='n')
+				{
+					syc;
+					goto regetlanguage;
+				}
+				else goto reaskforcestart;
+			} 
 			if (x!=1&&x!=2)
 			{
 				syc;
@@ -332,13 +360,14 @@ class llang:public lang_Database//Sinization by.skyfackr
 				goto regetlanguage;
 			} 
 			//中文部分暂时屏蔽 20181017 问题：字符串码兼容
+			
 			if (x==1)
 			{
 				syc;
 				cout<<"由于双语言框架中文部分兼容性问题，目前暂时关闭中文系统，请等本咕修复"<<endl;
 				goto regetlanguage; 
 			}
-			
+			forcestart:
 			language_get(x);
 			Sentence_Initialization_Centre();
 			LangERR_fixed();
