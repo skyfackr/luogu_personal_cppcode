@@ -1,22 +1,27 @@
 #include<bits/stdc++.h>
 using namespace std;
 string in,mu;
-int num,now=-1,first=-1;
+int num,now=0,first=-1,nowl;
 int main()
 {
-	cin>>mu;
+	getline(cin,mu);
+	getline(cin,in);
 	for (int i=0;i<=mu.size()-1;i++) mu[i]=tolower(mu[i]);
-	while (cin>>in) 
+	for (int i=0;i<=in.size()-1;i++) in[i]=tolower(in[i]);
+	mu=' '+mu+' ';
+	in=' '+in+' ';
+	size_t test=in.find(mu);
+	if (test==string::npos) 
 	{
-		now++;
-		for (int i=0;i<=in.size()-1;i++) in[i]=tolower(in[i]);
-		if (in==mu)
-		{
-			num++;
-			if (first==-1) first=now;
-		}
+		cout<<"-1"<<endl;
+		return 0;
 	}
-	if (first==-1) cout<<"-1"<<endl;
-	else cout<<num<<" "<<first<<endl;
+	size_t ans=test;
+	while (test!=string::npos)
+	{
+		num++;
+		test=in.find(mu,test+1);
+	}
+	cout<<num<<" "<<ans<<endl;
 	return 0;
-} 
+}
