@@ -4,7 +4,7 @@
 #include<climits>
 #define ll long long
 #define regi register int
-#define maxn (int)10e7
+#define maxn (int)10e4
 using namespace std;
 ll maxlevel,mp,minlevel=INT_MAX;
 int n,aii;
@@ -18,7 +18,7 @@ inline void levelup(int x)
 	x++;
 	maxlevel=max(maxlevel,(ll)x);
 	mp+=now1+now2;
-	obj[x].push(2*max(now1,now2));
+	obj[x].push(2*max(now1,now2)+1);
 	return ;
 } 
 inline void read(int &x)
@@ -41,7 +41,7 @@ ll inv(ll a, ll p)
 }
 inline void getk()
 {
-	
+//	cout<<maxlevel<<endl<<mp<<endl;
 	cout<<inv(maxlevel,mp)<<endl;
 	return ;
 }
@@ -62,7 +62,7 @@ int main()
 		if (i<=maxlevel&&obj[i].size()/2) mp=0;
 		while (i<=maxlevel&&obj[i].size()/2)
 		{
-			levelup(i);
+			while (obj[i].size()/2) levelup(i);
 			i++;
 		}
 	}
