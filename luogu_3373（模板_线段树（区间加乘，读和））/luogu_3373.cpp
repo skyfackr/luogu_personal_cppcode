@@ -10,7 +10,7 @@ class Tree
 	ll tree[maxn<<2];
 	inline ll getmid(ll x,ll y)
 	{
-		return (l+r)>>1;
+		return (x+y)>>1;
 	}
 	struct lazytag
 	{
@@ -28,7 +28,7 @@ class Tree
 	{
 		return tp<<1;
 	}
-	inline ll rs(tp)
+	inline ll rs(ll tp)
 	{
 		return (tp<<1)|1;
 	}
@@ -39,7 +39,7 @@ class Tree
 	}
 	inline void push_down(ll l,ll r,ll tp)
 	{
-		ll mid=getmid();
+		ll mid=getmid(l,r);
 		while (!tag[tp].tag.empty())
 		{
 			ll nowtag=tag[tp].tag.front();
@@ -58,7 +58,7 @@ class Tree
 			tree[tp]=a[l];
 			return ;
 		}
-		ll mid=getmid();
+		ll mid=getmid(l,r);
 		build(ls(tp),l,mid);
 		build(rs(tp),mid+1,r);
 		push_up(tp);
@@ -71,7 +71,7 @@ class Tree
 			return ;
 		}
 		push_down(l,r,tp);
-		ll mid=getmid();
+		ll mid=getmid(l,r);
 		if (mul<=mid) update(mul,mur,l,mid,ls(tp),sum,zt);
 		if (mur>=mid+1) update(mul,mur,mid+1,r,rs(tp),sum,zt);
 		push_up(tp);
@@ -81,7 +81,7 @@ class Tree
 	{
 		if (mul<=l&&r<=mur) return tree[tp];
 		ll ans=0;
-		ll mid=getmid();
+		ll mid=getmid(l,r);
 		push_down(l,r,tp);
 		if (mul<=mid) ans+=getnum(mul,mur,l,mid,ls(tp));
 		ans%=p;
@@ -104,5 +104,35 @@ class Tree
 		{
 			return getnum(l,r,1,n,1);
 		}
+};
+Tree tree;
+int did,x,y,z;
+int main()
+{
+	cin>>n>>m>>p;
+	for (regi i=1;i<=n;i++)
+	{
+		cin>>a[i];
+	}
+	tree.maketree();
+	for (regi i=1;i<=m;i++)
+	{
+		cin>>did;
+		switch (did)
+		{
+			case 1:
+				cin>>x>>y>>z;
+				tree.insert(x,y,z,true);
+				break;
+			case 2:
+				cin>>x>>y>>z;
+				tree.insert(x,y,z,false);
+				break;
+			case 3:
+				cin>>x>>y;
+				cout<<tree.find(x,y)<<endl;
+				break;
+		}
+	}
+	return 0;
 }
-
