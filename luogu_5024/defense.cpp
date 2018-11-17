@@ -126,8 +126,8 @@ ll dfs(int now)
 }
 int main()
 {
-	freopen("defense.in","r",stdin);
-	freopen("defense.out","w",stdout);
+//	freopen("defense.in","r",stdin);
+//	freopen("defense.out","w",stdout);
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 	cin>>n>>m;
