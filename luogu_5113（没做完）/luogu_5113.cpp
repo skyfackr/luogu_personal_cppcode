@@ -8,7 +8,7 @@ class SegmentTree
 {
     private:
         ll lazytag[maxn<<2];
-        ll worknum=0;
+        static ll worknum;
         struct Treedata
         {
             private:
@@ -22,20 +22,24 @@ class SegmentTree
                         treedata=lastnum;
                     return;
                 }
-                inline void give(ll x)
-                {
-                    lastnum=treedata;
-                    treedata=x;
-                    worktime=worknum;
-                    return ;
-                }
+                inline void give(ll x);
                 inline ll data()
                 {
                     return treedata;
                 }
         } tree[maxn<<2];
+        inline void addwork()
+        {
+            worknum++;
+            return ;
+        }
+        inline void workclear()
+        {
+            worknum=0;
+            return ;
+        }
         ll n;
-        ll &origin[maxn+5];
+        ll *origin;
         inline ll getmid(ll l,ll r)
         {
             return (l+r)>>1;
@@ -73,7 +77,7 @@ class SegmentTree
             lazytag[treep]=0;
             if (l==r)
             {
-                tree[treep].give(origin[l]);
+                tree[treep].give(*(origin+l));
                 return ;
             }
             ll mid=getmid(l,r);
@@ -106,10 +110,11 @@ class SegmentTree
             return ans;
         }
     public:
-        inline void maketree(ll &a[],ll x)
+        inline void maketree(ll a[],ll x)
         {
+            workclear();
             n=x;
-            &origin=&a;
+            origin=a;
             build(1,1,n);
             return ;
         }
@@ -119,7 +124,7 @@ class SegmentTree
         }
         inline void change(ll l,ll r,ll num)
         {
-            worknum++;
+            addwork();
             update(l,r,1,n,1,num);
             return ;
         }
@@ -129,8 +134,16 @@ class SegmentTree
             return ;
         }
 } tree;
+ll SegmentTree::worknum;
+inline void SegmentTree::Treedata::give(ll x)
+{
+    lastnum=treedata;
+    treedata=x;
+    worktime=worknum;
+    return ;
+}
 int n,m;
-int a[maxn+5];
+ll a[maxn+5];
 ll lastans=0;
 inline void work1()
 {
@@ -147,5 +160,41 @@ inline void work2()
     cin>>l>>r;
     l^=lastans;
     r^=lastans;
-    
+    lastans=tree.find(l,r);
+    cout<<lastans<<endl;
+    return ;
+}
+inline void work3()
+{
+    int x;
+    cin>>x;
+    x^=lastans;
+    tree.back(x);
+    return ;
+}
+int main()
+{
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin>>n>>m;
+    for (regi i=1;i<=n;i++) cin>>a[i];
+    tree.maketree(a,(ll)n);
+    for (regi i=1;i<=m;i++)
+    {
+        int work;
+        cin>>work;
+        switch(work)
+        {
+            case 1:
+                work1();
+                break;
+            case 2:
+                work2();
+                break;
+            case 3:
+                work3();
+                break;
+        }
+    }
+    return 0;
 }
