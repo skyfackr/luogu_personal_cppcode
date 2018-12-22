@@ -53,7 +53,7 @@ class Tree
         }
         void update(ll mul,ll mur,ll l,ll r,ll tp,ll sum)
         {
-            if (mul<=l&&r<=mur)//°üº¬
+            if (mul<=l&&r<=mur)//ï¿½ï¿½ï¿½ï¿½
             {
             //    tagpush(l,r,tp,sum);
                 tree[tp]+=sum*(r-l+1);
@@ -81,7 +81,6 @@ class Tree
     public:
         inline void maketree(ll a[],ll x)
         {
-
             n=x;
             build(1,1,n);
             return ;
