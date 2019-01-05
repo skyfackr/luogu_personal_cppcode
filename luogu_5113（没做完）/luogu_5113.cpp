@@ -8,7 +8,8 @@ class SegmentTree
 {
     private:
         ll lazytag[maxn<<2];
-        static ll worknum;
+        ll lazytagtime[maxn<<2];
+        ll worknum=0;
         struct Treedata
         {
             private:
@@ -22,7 +23,13 @@ class SegmentTree
                         treedata=lastnum;
                     return;
                 }
-                inline void give(ll x);
+                inline void give(ll x,ll worknum)
+                {
+                    lastnum=treedata;
+                    treedata=x;
+                    worktime=worknum;
+                    return ;
+                }
                 inline ll data()
                 {
                     return treedata;
@@ -54,22 +61,24 @@ class SegmentTree
         }
         inline void push_up(ll x)
         {
-            tree[x].give(tree[ls(x)].data()+tree[rs(x)].data());
+            tree[x].give(tree[ls(x)].data()+tree[rs(x)].data(),worknum);
             return ;
         }
-        inline void tagpush(ll l,ll r,ll treep,ll lazy)
+        inline void tagpush(ll l,ll r,ll treep,ll lazy,ll lazytime)
         {
             lazytag[treep]=lazy;
+            lazytagtime[treep]=lazytime;
             if (lazy<0) tree[treep].back(-1*lazy);
-                else tree[treep].give(lazy*(r-l+1));
+                else tree[treep].give(lazy*(r-l+1),worknum);
             return ;
         }
         inline void push_down(ll l,ll r,ll treep)
         {
             ll mid=getmid(l,r);
-            tagpush(l,mid,ls(treep),lazytag[treep]);
-            tagpush(mid+1,r,rs(treep),lazytag[treep]);
+            tagpush(l,mid,ls(treep),lazytag[treep],lazytagtime[treep]);
+            tagpush(mid+1,r,rs(treep),lazytag[treep],lazytagtime[treep]);
             lazytag[treep]=0;
+            lazytagtime[treep]=0;
             return ;
         }
         void build(ll l,ll r,ll treep)
@@ -77,7 +86,7 @@ class SegmentTree
             lazytag[treep]=0;
             if (l==r)
             {
-                tree[treep].give(*(origin+l));
+                tree[treep].give(*(origin+l),worknum);
                 return ;
             }
             ll mid=getmid(l,r);
@@ -90,7 +99,7 @@ class SegmentTree
         {
             if (mul<=l&&r<=mur)
             {
-                tagpush(l,r,treep,num);
+                tagpush(l,r,treep,num,worknum);
                 return ;
             }
             push_down(l,r,treep);
@@ -134,14 +143,6 @@ class SegmentTree
             return ;
         }
 } tree;
-ll SegmentTree::worknum;
-inline void SegmentTree::Treedata::give(ll x)
-{
-    lastnum=treedata;
-    treedata=x;
-    worktime=worknum;
-    return ;
-}
 int n,m;
 ll a[maxn+5];
 ll lastans=0;
